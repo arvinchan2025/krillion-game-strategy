@@ -4,6 +4,8 @@ export const siteConfig = {
   officialUrl: "https://krillion.io",
   description:
     "Independent Krillion game guides, strategies, game modes, and tips.",
+  author: "Krillion Game Strategy Editorial",
+  locale: "en_US"
 };
 
 export const navItems = [
