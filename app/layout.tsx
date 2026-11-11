@@ -1,19 +1,25 @@
-import type { Metadata, Viewport } from "next";
+import type {Metadata, Viewport} from "next";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { AdSenseScript } from "@/components/ads/AdSenseScript";
-import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
-import { siteConfig } from "@/lib/site";
+import {Header} from "@/components/layout/Header";
+import {Footer} from "@/components/layout/Footer";
+import {AdSenseScript} from "@/components/ads/AdSenseScript";
+import {GoogleAnalytics} from "@/components/analytics/GoogleAnalytics";
+import {siteConfig} from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: { default: "Krillion Guide – Tips, Rules & Strategies", template: "%s | Krillion Guide" },
+  title: {default: "Krillion Guide – Tips, Rules & Strategies", template: "%s | Krillion Guide"},
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "en_US", siteName: siteConfig.name, title: siteConfig.name, description: siteConfig.description },
-  robots: { index: true, follow: true }
+  alternates: {canonical: "/"},
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description
+  },
+  robots: {index: true, follow: true}
 };
 
 export const viewport: Viewport = {
@@ -22,16 +28,20 @@ export const viewport: Viewport = {
   themeColor: "#061824"
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">
-        <AdSenseScript />
-        <GoogleAnalytics />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </body>
+    <body className="min-h-screen antialiased">
+    <AdSenseScript/>
+    <GoogleAnalytics/>
+    <Header/>
+    <main>{children}</main>
+    <Footer/>
+    {gaId && (
+      <GoogleAnalytics gaId={gaId}/>
+    )}
+    </body>
     </html>
   );
 }
