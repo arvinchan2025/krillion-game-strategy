@@ -5,6 +5,7 @@ import {Footer} from "@/components/layout/Footer";
 import {AdSenseScript} from "@/components/ads/AdSenseScript";
 import {GoogleAnalytics} from "@/components/analytics/GoogleAnalytics";
 import {siteConfig} from "@/lib/site";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -38,9 +39,24 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
     <Header/>
     <main>{children}</main>
     <Footer/>
-    {gaId && (
-      <GoogleAnalytics gaId={gaId}/>
-    )}
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-R23Y0Z9XSP"
+      strategy="afterInteractive"
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gaId}', {
+              page_title: document.title,
+              page_location: window.location.href,
+              anonymize_ip: true,
+              allow_google_signals: true,
+              allow_ad_personalization_signals: false
+            });
+          `}
+    </Script>
     </body>
     </html>
   );
