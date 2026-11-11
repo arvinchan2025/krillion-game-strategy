@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body { background: #061824; color: #e2e8f0; }
+.container-shell { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+::selection { background: rgba(40,185,168,.35); color: white; }
+.prose :where(code):not(:where([class~="not-prose"] *)) { color: #7ce5d5; }
+
+@layer components {
+  .eyebrow { @apply text-[10px] font-bold uppercase tracking-[.22em] text-ocean-400; }
+  .section-title { @apply text-3xl font-black tracking-tight text-white md:text-4xl; }
+}
